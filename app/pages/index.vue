@@ -1,40 +1,27 @@
 <script setup lang="ts">
-import catalogData from "~/data/catalog.json";
-import type { Catalog } from "~/types/catalog";
+const { products: catalogProducts, categories } = useCatalog();
+const route = useRoute();
 
-const catalog: Catalog = catalogData;
-const { products, categories } = useCatalog(); // todo change categories for sidebar
+const products = computed(() => {
+  let result = catalogProducts;
 
-// const route = useRoute()
+  const category = route.query.category?.toString();
+  // const sort = route.query.sort?.toString();
 
-// const products = computed(() => {
-//   let result = catalog.value?.products ?? []
+  if (category) {
+    result = result.filter((product) => product.categories.includes(category));
+  }
 
-//   const category = route.query.category?.toString()
-//   const sort = route.query.sort?.toString()
+  // if (sort === "price-asc") {
+  //   result = result.toSorted((firstProduct, secondProduct) => firstProduct.price - secondProduct.price);
+  // }
 
-//   if (category) {
-//     result = result.filter(product =>
-//       product.categories.includes(category)
-//     )
-//   }
+  // if (sort === "price-desc") {
+  //   result = result.toSorted((firstProduct, secondProduct) => secondProduct.price - firstProduct.price);
+  // }
 
-//   if (sort === 'price-asc') {
-//     result = result.toSorted(
-//       (firstProduct, secondProduct) =>
-//         firstProduct.price - secondProduct.price
-//     )
-//   }
-
-//   if (sort === 'price-desc') {
-//     result = result.toSorted(
-//       (firstProduct, secondProduct) =>
-//         secondProduct.price - firstProduct.price
-//     )
-//   }
-
-//   return result
-// })
+  return result;
+});
 </script>
 
 <template>
@@ -43,7 +30,7 @@ const { products, categories } = useCatalog(); // todo change categories for sid
     <section class="products">
       <h1>All Products</h1>
       <div v-if="products.length" class="product-grid">
-        <ProductCard v-for="product in products" :key="product.id" :product="product" />
+        <ProductCard v-for="product in products" :key="product.id" :product />
       </div>
       <p v-else>There are no products to display :((</p>
     </section>

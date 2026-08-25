@@ -4,11 +4,14 @@ import type { Product } from "~/types/catalog";
 const { product } = defineProps<{
   product: Product;
 }>();
+
+// const imageLoaded = ref(false);
 </script>
 
 <template>
   <article class="product-card">
     <div class="product-image">
+      <!-- <div v-if="!imageLoaded && product.images?.[0]" class="image-skeleton"></div> -->
       <img
         v-if="product.images?.[0]"
         :src="product.images[0]"
