@@ -1,14 +1,50 @@
+<script setup lang="ts">
+import catalogData from "~/data/catalog.json";
+import type { Catalog } from "~/types/catalog";
+
+const catalog: Catalog = catalogData;
+
+// const route = useRoute()
+
+// const products = computed(() => {
+//   let result = catalog.value?.products ?? []
+
+//   const category = route.query.category?.toString()
+//   const sort = route.query.sort?.toString()
+
+//   if (category) {
+//     result = result.filter(product =>
+//       product.categories.includes(category)
+//     )
+//   }
+
+//   if (sort === 'price-asc') {
+//     result = result.toSorted(
+//       (firstProduct, secondProduct) =>
+//         firstProduct.price - secondProduct.price
+//     )
+//   }
+
+//   if (sort === 'price-desc') {
+//     result = result.toSorted(
+//       (firstProduct, secondProduct) =>
+//         secondProduct.price - firstProduct.price
+//     )
+//   }
+
+//   return result
+// })
+</script>
+
 <template>
   <div class="plp">
     <Sidebar />
     <section class="products">
       <h1>All Products</h1>
-      <div class="product-grid">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+      <div v-if="catalog.products.length" class="product-grid">
+        <ProductCard v-for="product in catalog.products" :key="product.id" :product="product" />
       </div>
+      <p v-else>There are no products to display :((</p>
     </section>
   </div>
 </template>
@@ -29,7 +65,7 @@
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--spacing-md);
 }
 </style>

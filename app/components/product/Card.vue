@@ -1,13 +1,26 @@
+<script setup lang="ts">
+import type { Product } from "~/types/catalog";
+
+const { product } = defineProps<{
+  product: Product;
+}>();
+</script>
+
 <template>
   <article class="product-card">
     <div class="product-image">
-      <span>Product image</span>
+      <img
+        v-if="product.images?.[0]"
+        :src="product.images[0]"
+        :alt="product.name.en || product.name.dk || 'Product image'"
+      />
+      <span v-else>Image missing</span>
     </div>
 
     <div class="product-info">
-      <p class="product-brand">Vero Moda</p>
-      <h2 class="product-name">Wrap Jacket</h2>
-      <p class="product-price">549.95 DKK</p>
+      <p class="product-brand">{{ product.brand }}</p>
+      <h2 class="product-name">{{ product.name.en || product.name.dk }}</h2>
+      <p class="product-price">{{ product.price }}</p>
     </div>
   </article>
 </template>
@@ -23,7 +36,14 @@
   display: grid;
   place-items: center;
   aspect-ratio: 3 / 4;
+  overflow: hidden;
   background: var(--col-surface-secondary);
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .product-info {
@@ -34,14 +54,19 @@
 
 .product-brand {
   color: var(--col-text-secondary);
-  font-size: 0.875rem;
+  font: var(--font-body-small);
 }
 
 .product-name {
-  font-size: 1rem;
+  font: var(--font-body);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .product-price {
   margin-top: var(--spacing-xs);
+  font: var(--font-label);
 }
 </style>
