@@ -3,6 +3,7 @@ import catalogData from "~/data/catalog.json";
 import type { Catalog } from "~/types/catalog";
 
 const catalog: Catalog = catalogData;
+const { products, categories } = useCatalog(); // todo change categories for sidebar
 
 // const route = useRoute()
 
@@ -38,11 +39,11 @@ const catalog: Catalog = catalogData;
 
 <template>
   <div class="plp">
-    <Sidebar />
+    <Sidebar :categoryTree="categories" />
     <section class="products">
       <h1>All Products</h1>
-      <div v-if="catalog.products.length" class="product-grid">
-        <ProductCard v-for="product in catalog.products" :key="product.id" :product="product" />
+      <div v-if="products.length" class="product-grid">
+        <ProductCard v-for="product in products" :key="product.id" :product="product" />
       </div>
       <p v-else>There are no products to display :((</p>
     </section>

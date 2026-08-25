@@ -1,14 +1,28 @@
+<script setup lang="ts">
+const { activeCategoryId, activeMainCategory } = useCatalog();
+</script>
+
 <template>
-  <aside class="sidebar">
-    <h3>Categories</h3>
+  <aside v-if="activeMainCategory" class="sidebar">
+    <h3>{{ activeMainCategory.name.en }}</h3>
 
     <nav class="sidebar-links">
-      <a href="#">New In</a>
-      <a href="#">Clothes</a>
-      <a href="#">Jeans</a>
-      <a href="#">Shirts</a>
-      <a href="#">Jackets</a>
-      <a href="#">Sale</a>
+      <NuxtLink
+        :to="{
+          path: '/',
+          query: { category: activeMainCategory.id },
+        }"
+        :class="{ active: activeCategoryId === activeMainCategory.id }"
+      >
+        See all
+      </NuxtLink>
+
+      <SidebarCategory
+        v-for="category in activeMainCategory.categories"
+        :key="category.id"
+        :category="category"
+        :active-category-id="activeCategoryId"
+      />
     </nav>
   </aside>
 </template>
