@@ -12,7 +12,7 @@ export function useCatalog() {
     ...rootCategories.filter((category) => category.id !== "adults"),
   ];
 
-  const activeCategoryId = computed(() => route.query.category?.toString() ?? "men");
+  const activeCategoryId = computed(() => route.query.category?.toString() ?? "");
 
   function findMainCategory(categories: Category[], categoryId: string): Category | undefined {
     const containsCategory = (category: Category): boolean => {
@@ -22,7 +22,10 @@ export function useCatalog() {
     return categories.find((category) => containsCategory(category));
   }
 
-  const activeMainCategory = computed(() => findMainCategory(mainCategories, activeCategoryId.value));
+  const activeMainCategory = computed(() => {
+    if (!activeCategoryId.value) return undefined;
+    return findMainCategory(mainCategories, activeCategoryId.value);
+  });
 
   return {
     products: catalog.products,
