@@ -5,6 +5,22 @@ const { images, productName } = defineProps<{
 }>();
 
 const selectedImageIndex = ref(0);
+const thumbnailList = ref<HTMLElement | null>(null);
+
+// reset the active img index when changing variants
+watch(
+  () => images,
+  () => {
+    selectedImageIndex.value = 0;
+  },
+);
+
+// keep the selected img in view
+watch(selectedImageIndex, async () => {
+  await nextTick();
+  const activeThumbnail = thumbnailList.value?.querySelector<HTMLElement>(".thumbnail-button.active");
+  activeThumbnail?.scrollIntoView({ block: "nearest" });
+});
 
 const selectedImage = computed(() => {
   return images[selectedImageIndex.value];
@@ -13,21 +29,37 @@ const selectedImage = computed(() => {
 function selectImage(index: number) {
   selectedImageIndex.value = index;
 }
+
+function showPreviousImage() {
+  if (selectedImageIndex.value > 0) {
+    selectedImageIndex.value--;
+  }
+}
+
+function showNextImage() {
+  if (selectedImageIndex.value < images.length - 1) {
+    selectedImageIndex.value++;
+  }
+}
 </script>
 
 <template>
   <section class="product-gallery">
-    <div class="product-thumbnails">
-      <button
-        v-for="(image, index) in images"
-        :key="image"
-        type="button"
-        class="thumbnail-button"
-        :class="{ active: selectedImageIndex === index }"
-        @click="selectImage(index)"
-      >
-        <img :src="image" :alt="`${productName} image ${index + 1}`" />
-      </button>
+    <div class="thumbnail-navigation">
+      <UiArrowButton ariaLabel="Previous image" @click="showPreviousImage">↑</UiArrowButton>
+      <div ref="thumbnailList" class="product-thumbnails">
+        <button
+          v-for="(image, index) in images"
+          :key="image"
+          type="button"
+          class="thumbnail-button"
+          :class="{ active: selectedImageIndex === index }"
+          @click="selectImage(index)"
+        >
+          <img :src="image" :alt="`${productName} image ${index + 1}`" />
+        </button>
+      </div>
+      <UiArrowButton ariaLabel="Next image" @click="showNextImage">↓</UiArrowButton>
     </div>
 
     <div class="selected-image">
@@ -41,15 +73,27 @@ function selectImage(index: number) {
 <style scoped>
 .product-gallery {
   display: grid;
-  grid-template-columns: 5rem 1fr;
+  grid-template-columns: 5rem minmax(0, 1fr);
   gap: var(--spacing-md);
   min-width: 0;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.thumbnail-navigation {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: 0;
+  gap: var(--spacing-xs);
 }
 
 .product-thumbnails {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
 .thumbnail-button {
@@ -74,7 +118,7 @@ function selectImage(index: number) {
 .selected-image {
   display: grid;
   place-items: center;
-  aspect-ratio: 3 / 4;
+  min-height: 0;
   overflow: hidden;
   background: var(--col-surface-secondary);
 }
