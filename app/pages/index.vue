@@ -28,13 +28,10 @@ const hasActiveCategory = computed(() => Boolean(route.query.category?.toString(
 
 <template>
   <div class="plp">
-    <Sidebar v-if="hasActiveCategory" :categoryTree="categories" />
+    <PlpSidebar v-if="hasActiveCategory" :categoryTree="categories" />
     <section :class="hasActiveCategory ? 'products' : 'products products--full'">
-      <div
-        v-if="products.length"
-        :class="hasActiveCategory ? 'product-grid' : 'product-grid product-grid--full'"
-      >
-        <ProductCard v-for="product in products" :key="product.id" :product="product" />
+      <div v-if="products.length" :class="hasActiveCategory ? 'product-grid' : 'product-grid product-grid--full'">
+        <PlpProductCard v-for="product in products" :key="product.id" :product="product" />
       </div>
       <p v-else>There are no products to display :((</p>
     </section>

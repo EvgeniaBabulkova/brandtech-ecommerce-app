@@ -9,7 +9,12 @@ const { product } = defineProps<{
 </script>
 
 <template>
-  <article class="product-card">
+  <NuxtLink
+    :to="{
+      path: `/product/${product.id}`,
+    }"
+    class="product-card"
+  >
     <div class="product-image">
       <!-- <div v-if="!imageLoaded && product.images?.[0]" class="image-skeleton"></div> -->
       <img
@@ -25,7 +30,7 @@ const { product } = defineProps<{
       <h2 class="product-name">{{ product.name.en || product.name.dk }}</h2>
       <p class="product-price">{{ product.price }}</p>
     </div>
-  </article>
+  </NuxtLink>
 </template>
 
 <style scoped>

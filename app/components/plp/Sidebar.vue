@@ -17,7 +17,7 @@ const { activeCategoryId, activeMainCategory } = useCatalog();
         See all
       </NuxtLink>
 
-      <SidebarCategory
+      <PlpSidebarCategory
         v-for="category in activeMainCategory.categories"
         :key="category.id"
         :category="category"
