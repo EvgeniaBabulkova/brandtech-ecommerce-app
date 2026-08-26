@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const { products: catalogProducts, categories } = useCatalog();
+import type { GridItem } from "~/types/gridItem";
+
+const { products: catalogProducts, categories, promotionalSpots } = useCatalog();
 const route = useRoute();
 
 const products = computed(() => {
@@ -23,6 +25,28 @@ const products = computed(() => {
   return result;
 });
 
+const gridItems = computed<GridItem[]>(() => {
+  const items: GridItem[] = products.value.map((product) => ({
+    type: "product",
+    data: product,
+  }));
+
+  const sortedPromotionalSpots = [...promotionalSpots].sort(
+    (firstSpot, secondSpot) => firstSpot.position - secondSpot.position, // flip order
+  );
+  sortedPromotionalSpots.forEach((promotionalSpot) => {
+    const insertionIndex = promotionalSpot.position - 1;
+    if (insertionIndex <= items.length) {
+      items.splice(insertionIndex, 0, {
+        type: "promotion",
+        data: promotionalSpot,
+      });
+    }
+  });
+
+  return items;
+});
+
 const hasActiveCategory = computed(() => Boolean(route.query.category?.toString()));
 </script>
 
@@ -31,7 +55,10 @@ const hasActiveCategory = computed(() => Boolean(route.query.category?.toString(
     <PlpSidebar v-if="hasActiveCategory" :categoryTree="categories" />
     <section :class="hasActiveCategory ? 'products' : 'products products--full'">
       <div v-if="products.length" :class="hasActiveCategory ? 'product-grid' : 'product-grid product-grid--full'">
-        <PlpProductCard v-for="product in products" :key="product.id" :product="product" />
+        <template v-for="item in gridItems">
+          <PlpProductCard v-if="item.type === 'product'" :key="`product-${item.data.id}`" :product="item.data" />
+          <PlpPromotionalSpot v-else :key="`promo-${item.data.position}`" :promotionalSpot="item.data" />
+        </template>
       </div>
       <p v-else>There are no products to display :((</p>
     </section>
@@ -46,6 +73,7 @@ const hasActiveCategory = computed(() => Boolean(route.query.category?.toString(
   padding: 0 var(--spacing-md);
 }
 
+/* todo sorting */
 .products {
   display: flex;
   flex-direction: column;
