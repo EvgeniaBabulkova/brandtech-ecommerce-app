@@ -2,7 +2,7 @@
 import type { ProductSize } from "~/types/catalog";
 
 const route = useRoute();
-const { products } = useCatalog();
+const { products, activeCategoryPath } = useCatalog();
 const productId = Number(route.params.id);
 const product = computed(() => products.find((product) => product.id === productId));
 
@@ -62,47 +62,55 @@ function getStockLabel(stock: string | number | undefined) {
 </script>
 
 <template>
-  <div v-if="product" class="product-details">
-    <PdpProductGallery :images="displayedImages" :product-name="product.name.en || product.name.dk || 'Product'" />
+  <section v-if="product" class="product-section">
+    <UiBreadcrumbs v-if="activeCategoryPath.length" :items="activeCategoryPath" />
+    <div class="product-details">
+      <PdpProductGallery :images="displayedImages" :product-name="product.name.en || product.name.dk || 'Product'" />
 
-    <section class="product-info">
-      <div class="product-heading">
-        <p class="product-brand">{{ product.brand }}</p>
+      <div class="product-info">
+        <div class="product-heading">
+          <p class="product-brand">{{ product.brand }}</p>
 
-        <h1 class="product-name">
-          {{ product.name.en || product.name.dk }}
-        </h1>
+          <h1 class="product-name">
+            {{ product.name.en || product.name.dk }}
+          </h1>
 
-        <p class="product-price">{{ product.price }} DKK</p>
+          <p class="product-price">{{ product.price }} DKK</p>
+        </div>
+        <PdpProductVariantSelector
+          v-if="productVariants.length > 1"
+          :variants="productVariants"
+          :selected-variant-index="selectedVariantIndex"
+          @select="selectVariant"
+        />
+
+        <PdpProductSizeSelector :sizes="displayedSizes" :selected-size="selectedSize" @select="selectSize" />
+
+        <div class="purchase-section">
+          <p class="stock-label">
+            {{ getStockLabel(displayedStock) }}
+          </p>
+
+          <button type="button" class="add-to-cart-button" :disabled="displayedStock === 0">ADD TO CART</button>
+        </div>
       </div>
-      <PdpProductVariantSelector
-        v-if="productVariants.length > 1"
-        :variants="productVariants"
-        :selected-variant-index="selectedVariantIndex"
-        @select="selectVariant"
-      />
-
-      <PdpProductSizeSelector :sizes="displayedSizes" :selected-size="selectedSize" @select="selectSize" />
-
-      <div class="purchase-section">
-        <p class="stock-label">
-          {{ getStockLabel(displayedStock) }}
-        </p>
-
-        <button type="button" class="add-to-cart-button" :disabled="displayedStock === 0">ADD TO CART</button>
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
   <p v-else>Product not found</p>
 </template>
 
 <style scoped>
+.product-section {
+  display: grid;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+}
+
 .product-details {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--spacing-xxl);
-  padding: var(--spacing-lg);
 }
 
 .product-info {

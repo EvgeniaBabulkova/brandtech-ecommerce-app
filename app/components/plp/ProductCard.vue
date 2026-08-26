@@ -5,6 +5,8 @@ const { product } = defineProps<{
   product: Product;
 }>();
 
+const route = useRoute();
+
 // const imageLoaded = ref(false);
 </script>
 
@@ -12,6 +14,7 @@ const { product } = defineProps<{
   <NuxtLink
     :to="{
       path: `/product/${product.id}`,
+      query: { category: route.query.category }, // to preserve mainCategory
     }"
     class="product-card"
   >

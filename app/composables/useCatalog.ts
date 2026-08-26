@@ -27,6 +27,25 @@ export function useCatalog() {
     return findMainCategory(mainCategories, activeCategoryId.value);
   });
 
+  function findCategoryPath(categories: Category[], categoryId: string, path: Category[] = []): Category[] | undefined {
+    for (const category of categories) {
+      const currentPath = [...path, category];
+
+      if (category.id === categoryId) return currentPath;
+
+      if (category.categories) {
+        const childPath = findCategoryPath(category.categories, categoryId, currentPath);
+        if (childPath) return childPath;
+      }
+    }
+    return undefined;
+  }
+
+  const activeCategoryPath = computed(() => {
+    if (!activeCategoryId.value) return [];
+    return findCategoryPath(mainCategories, activeCategoryId.value) ?? [];
+  });
+
   return {
     products: catalog.products,
     categories: catalog.categories,
@@ -35,5 +54,6 @@ export function useCatalog() {
 
     activeCategoryId, // doesn't need to be high level
     activeMainCategory, // for the high level only
+    activeCategoryPath, // for breadcrumbs
   };
 }
