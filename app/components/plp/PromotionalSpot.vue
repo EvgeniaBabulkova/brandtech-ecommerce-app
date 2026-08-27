@@ -8,7 +8,11 @@ defineProps<{
 
 <template>
   <NuxtLink :to="promotionalSpot.link" class="promotional-spot" :class="`promotional-spot--${promotionalSpot.type}`">
-    <img :src="promotionalSpot.image.imageUrl" :alt="promotionalSpot.imageAltText || promotionalSpot.image.alt" />
+    <img
+      :src="promotionalSpot.image.imageUrl"
+      :alt="promotionalSpot.imageAltText || promotionalSpot.image.alt"
+      loading="lazy"
+    />
   </NuxtLink>
 </template>
 

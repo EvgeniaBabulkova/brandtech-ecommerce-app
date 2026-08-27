@@ -4,10 +4,8 @@ import type { Product } from "~/types/catalog";
 const { product } = defineProps<{
   product: Product;
 }>();
-
 const route = useRoute();
-
-// const imageLoaded = ref(false);
+const imageLoaded = ref(false);
 </script>
 
 <template>
@@ -19,12 +17,23 @@ const route = useRoute();
     class="product-card"
   >
     <div class="product-image">
-      <!-- <div v-if="!imageLoaded && product.images?.[0]" class="image-skeleton"></div> -->
-      <img
+      <div v-if="!imageLoaded && product.images?.[0]" class="image-skeleton" />
+
+      <NuxtImg
         v-if="product.images?.[0]"
         :src="product.images[0]"
         :alt="product.name.en || product.name.dk || 'Product image'"
-      />
+        width="360"
+        height="480"
+        format="webp"
+        quality="75"
+        loading="lazy"
+        decoding="async"
+        :class="{ loaded: imageLoaded }"
+        @load="imageLoaded = true"
+      >
+      </NuxtImg>
+
       <span v-else>Image missing</span>
     </div>
 
@@ -43,6 +52,7 @@ const route = useRoute();
   gap: var(--spacing-sm);
 
   .product-image {
+    position: relative;
     display: grid;
     place-items: center;
     aspect-ratio: 3 / 4;
@@ -53,6 +63,30 @@ const route = useRoute();
       width: 100%;
       height: 100%;
       object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+
+      &.loaded {
+        opacity: 1;
+      }
+    }
+  }
+
+  .image-skeleton {
+    position: absolute;
+    inset: 0;
+    background: var(--col-surface-secondary);
+    animation: skeleton-pulse 1.2s ease-in-out infinite;
+  }
+
+  @keyframes skeleton-pulse {
+    0%,
+    100% {
+      background-color: var(--col-surface-secondary);
+    }
+
+    50% {
+      background-color: var(--col-border);
     }
   }
 
@@ -69,7 +103,6 @@ const route = useRoute();
 
   .product-name {
     font: var(--font-body);
-
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

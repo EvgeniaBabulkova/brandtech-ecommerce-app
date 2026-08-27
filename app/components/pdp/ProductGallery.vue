@@ -56,14 +56,31 @@ function showNextImage() {
           :class="{ active: selectedImageIndex === index }"
           @click="selectImage(index)"
         >
-          <img :src="image" :alt="`${productName} image ${index + 1}`" />
+          <NuxtImg
+            :src="image"
+            :alt="`${productName} image ${index + 1}`"
+            width="120"
+            height="160"
+            format="webp"
+            quality="70"
+            loading="lazy"
+            decoding="async"
+          />
         </button>
       </div>
       <UiArrowButton ariaLabel="Next image" @click="showNextImage">↓</UiArrowButton>
     </div>
 
     <div class="selected-image">
-      <img v-if="selectedImage" :src="selectedImage" :alt="productName" />
+      <NuxtImg
+        v-if="selectedImage"
+        :src="selectedImage"
+        :alt="productName"
+        width="840"
+        height="1120"
+        format="webp"
+        quality="75"
+      />
 
       <span v-else>Image missing</span>
     </div>
@@ -108,7 +125,7 @@ function showNextImage() {
   border-color: var(--col-text-primary);
 }
 
-.thumbnail-button img {
+.thumbnail-button :deep(img) {
   display: block;
   width: 100%;
   aspect-ratio: 3 / 4;
@@ -123,7 +140,7 @@ function showNextImage() {
   background: var(--col-surface-secondary);
 }
 
-.selected-image img {
+.selected-image :deep(img) {
   width: 100%;
   height: 100%;
   object-fit: cover;
