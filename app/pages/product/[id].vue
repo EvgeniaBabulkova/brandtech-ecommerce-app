@@ -110,7 +110,7 @@ function getStockLabel(stock: string | number | undefined) {
   <p v-else>Product not found</p>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .product-section {
   display: grid;
   gap: var(--spacing-sm);
@@ -127,49 +127,49 @@ function getStockLabel(stock: string | number | undefined) {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xl);
-}
 
-.product-heading {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-}
+  .product-heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
 
-.product-brand {
-  color: var(--col-text-secondary);
-  font: var(--font-body-small);
-}
+  .product-brand {
+    color: var(--col-text-secondary);
+    font: var(--font-body-small);
+  }
 
-.product-name {
-  font: var(--font-heading-md);
-}
+  .product-name {
+    font: var(--font-heading-md);
+  }
 
-.product-price {
-  font: var(--font-heading-sm);
-}
+  .product-price {
+    font: var(--font-heading-sm);
+  }
 
-.purchase-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
+  .purchase-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
 
-.stock-label {
-  font: var(--font-body);
-}
+  .stock-label {
+    font: var(--font-body);
+  }
 
-.add-to-cart-button {
-  width: 100%;
-  padding: var(--spacing-md);
-  border: 0;
-  background: var(--col-text-primary);
-  color: var(--col-surface-primary);
-  font: var(--font-button);
-  cursor: pointer;
-}
+  .add-to-cart-button {
+    width: 100%;
+    padding: var(--spacing-md);
+    border: 0;
+    background: var(--col-text-primary);
+    color: var(--col-surface-primary);
+    font: var(--font-button);
+    cursor: pointer;
 
-.add-to-cart-button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
 }
 </style>

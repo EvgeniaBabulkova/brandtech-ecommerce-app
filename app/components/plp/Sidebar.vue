@@ -12,6 +12,7 @@ const { activeCategoryId, activeMainCategory } = useCatalog();
           path: '/',
           query: { category: activeMainCategory.id },
         }"
+        class="sidebar-link sidebar-link--see-all"
         :class="{ active: activeCategoryId === activeMainCategory.id }"
       >
         See all
@@ -22,30 +23,36 @@ const { activeCategoryId, activeMainCategory } = useCatalog();
         :key="category.id"
         :category="category"
         :active-category-id="activeCategoryId"
+        top-level
       />
     </nav>
   </aside>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@use "~/assets/css/_mixins" as *;
+
 .sidebar {
   min-width: 180px;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+  position: sticky;
+  top: 5.5rem;
+  align-self: start;
 }
 
 .sidebar-links {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
 }
 
-.sidebar-links a {
-  color: var(--col-text-secondary);
-}
+.sidebar-link {
+  width: fit-content;
+  @include link-state;
 
-.sidebar-links a:hover {
-  color: var(--col-text-primary);
+  &--see-all {
+    margin-bottom: var(--spacing-md);
+  }
 }
 </style>

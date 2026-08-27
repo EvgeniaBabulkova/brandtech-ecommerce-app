@@ -83,7 +83,9 @@ const hasActiveCategory = computed(() => Boolean(route.query.category?.toString(
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@use "~/assets/css/_mixins" as *;
+
 .plp {
   display: grid;
   grid-template-columns: 200px 1fr;
@@ -97,35 +99,30 @@ const hasActiveCategory = computed(() => Boolean(route.query.category?.toString(
 }
 
 .reset-filters-button {
-  padding: var(--spacing-md);
-  border: 1px solid var(--col-border);
-  background: var(--col-surface-primary);
-  color: var(--col-text-primary);
-  font: var(--font-label);
-  cursor: pointer;
-}
+  @include control-shell();
 
-.reset-filters-button:hover {
-  border-color: var(--col-text-primary);
+  &:hover {
+    border-color: var(--col-text-primary);
+  }
 }
 
 .products {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-}
 
-.products--full {
-  grid-column: 1 / -1;
+  &--full {
+    grid-column: 1 / -1;
+  }
 }
 
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--spacing-md);
-}
 
-.product-grid--full {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  &--full {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 }
 </style>

@@ -36,7 +36,7 @@ const emit = defineEmits<{
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .variant-selector {
   display: flex;
   flex-direction: column;
@@ -61,25 +61,25 @@ const emit = defineEmits<{
   background: var(--col-surface-primary);
   cursor: pointer;
   overflow: hidden;
-}
 
-.variant-button.active {
-  border-color: var(--col-text-primary);
-}
+  &.active {
+    border-color: var(--col-text-primary);
+  }
 
-.variant-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  .variant-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-.variant-fallback {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: var(--spacing-xs);
-  font: var(--font-label-small);
-  text-align: center;
+  .variant-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: var(--spacing-xs);
+    font: var(--font-label-small);
+    text-align: center;
+  }
 }
 </style>

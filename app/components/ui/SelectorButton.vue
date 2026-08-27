@@ -10,14 +10,12 @@ defineProps<{
   </button>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@use "~/assets/css/_mixins" as *;
+
 .selector-button {
   min-width: 3.5rem;
-  padding: var(--spacing-md);
-  border: 1px solid var(--col-border);
-  background: var(--col-surface-primary);
-  font: var(--font-label);
-  cursor: pointer;
+  @include control-shell();
 }
 
 .selector-button.active {

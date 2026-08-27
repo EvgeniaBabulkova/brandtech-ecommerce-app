@@ -17,25 +17,25 @@ defineProps<{
   </nav>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .breadcrumbs {
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
   font: var(--font-body-small);
   text-transform: uppercase;
-}
 
-.breadcrumb-link {
-  color: var(--col-text-secondary);
-  text-decoration: none;
-}
+  .breadcrumb-link {
+    color: var(--col-text-secondary);
+    text-decoration: none;
 
-.breadcrumb-link:hover {
-  text-decoration: underline;
-}
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 
-.separator {
-  color: var(--col-text-secondary);
+  .separator {
+    color: var(--col-text-secondary);
+  }
 }
 </style>

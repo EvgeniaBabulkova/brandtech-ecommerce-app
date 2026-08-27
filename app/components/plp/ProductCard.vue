@@ -36,48 +36,48 @@ const route = useRoute();
   </NuxtLink>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .product-card {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
-}
 
-.product-image {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-  background: var(--col-surface-secondary);
-}
+  .product-image {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--col-surface-secondary);
 
-.product-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 
-.product-info {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-}
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
 
-.product-brand {
-  color: var(--col-text-secondary);
-  font: var(--font-body-small);
-}
+  .product-brand {
+    color: var(--col-text-secondary);
+    font: var(--font-body-small);
+  }
 
-.product-name {
-  font: var(--font-body);
+  .product-name {
+    font: var(--font-body);
 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-.product-price {
-  margin-top: var(--spacing-xs);
-  font: var(--font-label);
+  .product-price {
+    margin-top: var(--spacing-xs);
+    font: var(--font-label);
+  }
 }
 </style>

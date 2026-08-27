@@ -23,7 +23,9 @@ const emit = defineEmits<{
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@use "~/assets/css/_mixins" as *;
+
 .sort {
   display: flex;
   align-items: center;
@@ -35,11 +37,6 @@ const emit = defineEmits<{
 }
 
 .sort select {
-  padding: var(--spacing-md);
-  border: 1px solid var(--col-border);
-  background: var(--col-surface-primary);
-  color: var(--col-text-primary);
-  font: var(--font-label);
-  cursor: pointer;
+  @include control-shell();
 }
 </style>

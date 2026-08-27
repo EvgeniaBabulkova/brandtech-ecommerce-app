@@ -11,14 +11,12 @@ defineProps<{
   </button>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@use "~/assets/css/_mixins" as *;
+
 .arrow-button {
   width: 100%;
-  padding: var(--spacing-sm) 0;
-  border: 1px solid var(--col-border);
-  background: var(--col-surface-primary);
-  font: var(--font-label);
-  cursor: pointer;
+  @include control-shell;
 }
 
 .arrow-button:disabled {
