@@ -1,6 +1,6 @@
 # BrandTech Storefront
 
-[Check it out]() <-----------
+[Check it out](https://brandtech-ecommerce-app.vercel.app/) <-----------
 
 A small e-commerce storefront built with Vue 3 and Nuxt SSR, powered by a local catalog JSON containing products, categories, and promotional placements.
 
