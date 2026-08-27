@@ -28,13 +28,26 @@ const emit = defineEmits<{
   display: flex;
   align-items: center;
   gap: $spacing-sm;
-}
+  position: relative;
 
-.sort label {
-  font: $font-label;
-}
+  &::after {
+    content: "";
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
 
-.sort select {
-  @include control-shell();
+  select {
+    @include control-shell();
+    appearance: none;
+    padding-right: 40px;
+    width: 140px;
+  }
 }
 </style>
