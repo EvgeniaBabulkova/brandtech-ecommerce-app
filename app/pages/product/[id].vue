@@ -6,6 +6,16 @@ const { products, activeCategoryPath } = useCatalog();
 const productId = Number(route.params.id);
 const product = computed(() => products.find((product) => product.id === productId));
 
+// meta
+useSeoMeta({
+  title: () =>
+    product.value ? `${product.value.brand} - ${product.value.name.en || product.value.name.dk}` : "Product",
+  description: () =>
+    product.value
+      ? `Shop ${product.value.name.en || product.value.name.dk} by ${product.value.brand} for ${product.value.price} DKK.`
+      : "View product details.",
+});
+
 // creating array of all product variants
 const productVariants = computed(() => {
   if (!product.value) return [];

@@ -7,22 +7,18 @@ const router = useRouter();
 
 const products = computed(() => {
   let result = [...catalogProducts];
-
   const category = route.query.category?.toString();
   const sort = route.query.sort?.toString();
 
   if (category) {
     result = result.filter((product) => product.categories.includes(category));
   }
-
   if (sort === "price-asc") {
     result = result.toSorted((firstProduct, secondProduct) => firstProduct.price - secondProduct.price);
   }
-
   if (sort === "price-desc") {
     result = result.toSorted((firstProduct, secondProduct) => secondProduct.price - firstProduct.price);
   }
-
   return result;
 });
 
