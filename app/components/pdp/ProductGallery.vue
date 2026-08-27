@@ -76,8 +76,8 @@ function showNextImage() {
         v-if="selectedImage"
         :src="selectedImage"
         :alt="productName"
-        width="840"
-        height="1120"
+        width="600"
+        height="800"
         format="webp"
         quality="75"
       />
@@ -87,12 +87,11 @@ function showNextImage() {
   </section>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .product-gallery {
   display: grid;
   grid-template-columns: 5rem minmax(0, 1fr);
-  gap: var(--spacing-md);
-  min-width: 0;
+  gap: $spacing-md;
   aspect-ratio: 3 / 4;
   overflow: hidden;
 }
@@ -101,14 +100,13 @@ function showNextImage() {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   min-height: 0;
-  gap: var(--spacing-xs);
+  gap: $spacing-xs;
 }
 
 .product-thumbnails {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
-  min-height: 0;
+  gap: $spacing-sm;
   overflow-y: auto;
   scrollbar-width: none;
 }
@@ -119,30 +117,39 @@ function showNextImage() {
   border: 1px solid transparent;
   background: none;
   cursor: pointer;
-}
 
-.thumbnail-button.active {
-  border-color: var(--col-text-primary);
-}
+  &.active {
+    border-color: $col-text-primary;
+  }
 
-.thumbnail-button :deep(img) {
-  display: block;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
+  :deep(img) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
 }
 
 .selected-image {
-  display: grid;
-  place-items: center;
-  min-height: 0;
   overflow: hidden;
-  background: var(--col-surface-secondary);
+  background: $col-surface-secondary;
 }
 
 .selected-image :deep(img) {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .product-gallery {
+    display: block;
+    aspect-ratio: auto;
+    overflow: visible;
+  }
+
+  .thumbnail-navigation {
+    display: none;
+  }
 }
 </style>

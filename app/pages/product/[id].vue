@@ -28,11 +28,9 @@ const productVariants = computed(() => {
   return [mainVariant, ...(product.value.variant ?? [])];
 });
 
-// all info updates depends on selectedvariantindex
+// all info updates depend on selectedvariantindex
 const selectedVariantIndex = ref(0);
-const selectedVariant = computed(() => {
-  return productVariants.value[selectedVariantIndex.value];
-});
+const selectedVariant = computed(() => productVariants.value[selectedVariantIndex.value]);
 
 // info updates
 const displayedImages = computed(() =>
@@ -101,7 +99,9 @@ function getStockLabel(stock: string | number | undefined) {
             {{ getStockLabel(displayedStock) }}
           </p>
 
-          <button type="button" class="add-to-cart-button" :disabled="displayedStock === 0">ADD TO CART</button>
+          <button type="button" class="add-to-cart-button" :disabled="displayedStock === 0 || selectedSize === null">
+            ADD TO CART
+          </button>
         </div>
       </div>
     </div>
@@ -113,63 +113,70 @@ function getStockLabel(stock: string | number | undefined) {
 <style scoped lang="scss">
 .product-section {
   display: grid;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-lg);
+  gap: $spacing-sm;
+  padding: $spacing-lg;
 }
 
 .product-details {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-xxl);
+  gap: $spacing-xxl;
 }
 
 .product-info {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xl);
+  gap: $spacing-xl;
 
   .product-heading {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: $spacing-sm;
   }
 
   .product-brand {
-    color: var(--col-text-secondary);
-    font: var(--font-body-small);
+    color: $col-text-secondary;
+    font: $font-body-small;
   }
 
   .product-name {
-    font: var(--font-heading-md);
+    font: $font-heading-md;
   }
 
   .product-price {
-    font: var(--font-heading-sm);
+    font: $font-heading-sm;
   }
 
   .purchase-section {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
-  }
-
-  .stock-label {
-    font: var(--font-body);
+    gap: $spacing-sm;
   }
 
   .add-to-cart-button {
     width: 100%;
-    padding: var(--spacing-md);
+    padding: $spacing-md;
     border: 0;
-    background: var(--col-text-primary);
-    color: var(--col-surface-primary);
-    font: var(--font-button);
+    background: $col-text-primary;
+    color: $col-surface-primary;
+    font: $font-button;
     cursor: pointer;
 
     &:disabled {
       opacity: 0.4;
       cursor: not-allowed;
     }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .product-section {
+    padding: $spacing-md;
+  }
+
+  .product-details {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
   }
 }
 </style>

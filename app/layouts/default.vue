@@ -7,10 +7,10 @@
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 div {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
+  gap: $spacing-lg;
 }
 </style>

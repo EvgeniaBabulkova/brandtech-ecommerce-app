@@ -28,20 +28,20 @@ const emit = defineEmits<{
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .size-selector {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: $spacing-sm;
 }
 
 .option-label {
-  font: var(--font-label-small);
+  font: $font-label-small;
 }
 
 .option-list {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-sm);
+  gap: $spacing-sm;
 }
 </style>

@@ -12,8 +12,6 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
-@use "~/assets/css/_mixins" as *;
-
 .arrow-button {
   width: 100%;
   @include control-shell;

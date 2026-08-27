@@ -21,12 +21,12 @@ defineProps<{
 .breadcrumbs {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
-  font: var(--font-body-small);
+  gap: $spacing-xs;
+  font: $font-body-small;
   text-transform: uppercase;
 
   .breadcrumb-link {
-    color: var(--col-text-secondary);
+    color: $col-text-secondary;
     text-decoration: none;
 
     &:hover {
@@ -35,7 +35,7 @@ defineProps<{
   }
 
   .separator {
-    color: var(--col-text-secondary);
+    color: $col-text-secondary;
   }
 }
 </style>

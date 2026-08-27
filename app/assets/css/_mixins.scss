@@ -1,15 +1,17 @@
+@use "./variables" as *;
+
 @mixin control-shell {
-  padding: var(--spacing-md);
-  border: 1px solid var(--col-border);
-  background: var(--col-surface-primary);
-  color: var(--col-text-primary);
-  font: var(--font-label);
+  padding: $spacing-md;
+  border: 1px solid $col-border;
+  background: $col-surface-primary;
+  color: $col-text-primary;
+  font: $font-label;
   cursor: pointer;
 }
 
 @mixin link-state {
-  color: var(--col-text-primary);
-  font: var(--font-body);
+  color: $col-text-primary;
+  font: $font-body;
   text-decoration: none;
 
   &:hover,
@@ -19,7 +21,7 @@
   }
 
   &.active {
-    font: var(--font-label);
+    font: $font-label;
     text-decoration: underline;
     text-underline-offset: 0.25rem;
   }

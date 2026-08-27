@@ -40,30 +40,30 @@ const emit = defineEmits<{
 .variant-selector {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: $spacing-sm;
 }
 
 .option-label {
-  font: var(--font-label-small);
+  font: $font-label-small;
 }
 
 .option-list {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-sm);
+  gap: $spacing-sm;
 }
 
 .variant-button {
   width: 4.5rem;
   height: 6rem;
   padding: 0;
-  border: 1px solid var(--col-border);
-  background: var(--col-surface-primary);
+  border: 1px solid $col-border;
+  background: $col-surface-primary;
   cursor: pointer;
   overflow: hidden;
 
   &.active {
-    border-color: var(--col-text-primary);
+    border-color: $col-text-primary;
   }
 
   .variant-image {
@@ -77,8 +77,8 @@ const emit = defineEmits<{
     align-items: center;
     justify-content: center;
     height: 100%;
-    padding: var(--spacing-xs);
-    font: var(--font-label-small);
+    padding: $spacing-xs;
+    font: $font-label-small;
     text-align: center;
   }
 }

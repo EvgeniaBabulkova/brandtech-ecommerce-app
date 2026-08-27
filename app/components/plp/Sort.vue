@@ -24,16 +24,14 @@ const emit = defineEmits<{
 </template>
 
 <style scoped lang="scss">
-@use "~/assets/css/_mixins" as *;
-
 .sort {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: $spacing-sm;
 }
 
 .sort label {
-  font: var(--font-label);
+  font: $font-label;
 }
 
 .sort select {

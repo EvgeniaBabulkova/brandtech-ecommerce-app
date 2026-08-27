@@ -29,7 +29,7 @@ const gridItems = computed<GridItem[]>(() => {
   }));
 
   const sortedPromotionalSpots = [...promotionalSpots].sort(
-    (firstSpot, secondSpot) => firstSpot.position - secondSpot.position, // flip order
+    (firstSpot, secondSpot) => firstSpot.position - secondSpot.position, // flips order
   );
   sortedPromotionalSpots.forEach((promotionalSpot) => {
     const insertionIndex = promotionalSpot.position - 1;
@@ -84,32 +84,30 @@ const hasActiveCategory = computed(() => Boolean(route.query.category?.toString(
 </template>
 
 <style scoped lang="scss">
-@use "~/assets/css/_mixins" as *;
-
 .plp {
   display: grid;
   grid-template-columns: 200px 1fr;
-  gap: var(--spacing-xl);
-  padding: 0 var(--spacing-md);
+  gap: $spacing-xl;
+  padding: 0 $spacing-md;
 }
 
 .product-controls {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: $spacing-sm;
 }
 
 .reset-filters-button {
   @include control-shell();
 
   &:hover {
-    border-color: var(--col-text-primary);
+    border-color: $col-text-primary;
   }
 }
 
 .products {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: $spacing-md;
 
   &--full {
     grid-column: 1 / -1;
@@ -119,10 +117,21 @@ const hasActiveCategory = computed(() => Boolean(route.query.category?.toString(
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--spacing-md);
+  gap: $spacing-md;
 
   &--full {
     grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .plp {
+    display: block;
+  }
+
+  .product-grid,
+  .product-grid--full {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 </style>

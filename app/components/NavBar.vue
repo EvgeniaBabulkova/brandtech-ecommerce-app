@@ -33,9 +33,9 @@ const { mainCategories, activeMainCategory } = useCatalog();
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: var(--spacing-md);
-  border-bottom: 1px solid var(--col-border);
-  background: var(--col-surface-primary);
+  padding: $spacing-md;
+  border-bottom: 1px solid $col-border;
+  background: $col-surface-primary;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -43,15 +43,15 @@ const { mainCategories, activeMainCategory } = useCatalog();
 
 .nav-links {
   display: flex;
-  gap: var(--spacing-lg);
+  gap: $spacing-lg;
   justify-self: start;
 
   a {
-    font: var(--font-body);
+    font: $font-body;
     text-transform: uppercase;
 
     &.active {
-      font: var(--font-label);
+      font: $font-label;
     }
   }
 }
@@ -65,15 +65,40 @@ const { mainCategories, activeMainCategory } = useCatalog();
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: $spacing-md;
   justify-self: end;
 
   button {
     padding: 0;
-    color: var(--col-text-primary);
+    color: $col-text-primary;
     background: none;
     border: none;
     cursor: pointer;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .nav {
+    grid-template-columns: auto 1fr;
+    gap: $spacing-md;
+  }
+
+  .logo {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    font-size: 20px;
+  }
+
+  .nav-links {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    gap: $spacing-md;
+  }
+
+  .nav-actions {
+    display: none;
   }
 }
 </style>

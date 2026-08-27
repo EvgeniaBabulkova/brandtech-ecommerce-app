@@ -37,16 +37,14 @@ const {
 </template>
 
 <style scoped lang="scss">
-@use "~/assets/css/_mixins" as *;
-
 .category-group {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: $spacing-sm;
 
   &--top-level {
-    padding: var(--spacing-md) 0 var(--spacing-sm);
-    border-top: 1px solid var(--col-border);
+    padding: $spacing-md 0 $spacing-sm;
+    border-top: 1px solid $col-border;
   }
 }
 
@@ -58,7 +56,20 @@ const {
 .subcategory-list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
-  padding-left: var(--spacing-sm);
+  gap: $spacing-sm;
+  padding-left: $spacing-sm;
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .category-group {
+    flex-shrink: 0;
+    &--top-level {
+      padding: 0;
+      border-top: none;
+    }
+  }
+  .subcategory-list {
+    display: none;
+  }
 }
 </style>

@@ -30,15 +30,13 @@ const { activeCategoryId, activeMainCategory } = useCatalog();
 </template>
 
 <style scoped lang="scss">
-@use "~/assets/css/_mixins" as *;
-
 .sidebar {
   min-width: 180px;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: $spacing-md;
   position: sticky;
-  top: 5.5rem;
+  top: 5rem;
   align-self: start;
 }
 
@@ -52,7 +50,32 @@ const { activeCategoryId, activeMainCategory } = useCatalog();
   @include link-state;
 
   &--see-all {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: $spacing-md;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .sidebar {
+    min-width: 0;
+    position: static;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-md;
+  }
+
+  .sidebar-links {
+    flex-direction: row;
+    gap: $spacing-md;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: $spacing-sm;
+  }
+
+  .sidebar-link {
+    flex-shrink: 0;
+
+    &--see-all {
+      margin-bottom: 0;
+    }
   }
 }
 </style>

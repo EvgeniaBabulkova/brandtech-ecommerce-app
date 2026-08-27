@@ -12,7 +12,7 @@ const imageLoaded = ref(false);
   <NuxtLink
     :to="{
       path: `/product/${product.id}`,
-      query: { category: route.query.category }, // to preserve mainCategory
+      query: { category: route.query.category }, // preserve category context
     }"
     class="product-card"
   >
@@ -31,8 +31,7 @@ const imageLoaded = ref(false);
         decoding="async"
         :class="{ loaded: imageLoaded }"
         @load="imageLoaded = true"
-      >
-      </NuxtImg>
+      />
 
       <span v-else>Image missing</span>
     </div>
@@ -49,7 +48,7 @@ const imageLoaded = ref(false);
 .product-card {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: $spacing-sm;
 
   .product-image {
     position: relative;
@@ -57,7 +56,7 @@ const imageLoaded = ref(false);
     place-items: center;
     aspect-ratio: 3 / 4;
     overflow: hidden;
-    background: var(--col-surface-secondary);
+    background: $col-surface-secondary;
 
     img {
       width: 100%;
@@ -75,42 +74,42 @@ const imageLoaded = ref(false);
   .image-skeleton {
     position: absolute;
     inset: 0;
-    background: var(--col-surface-secondary);
+    background: $col-surface-secondary;
     animation: skeleton-pulse 1.2s ease-in-out infinite;
   }
 
   @keyframes skeleton-pulse {
     0%,
     100% {
-      background-color: var(--col-surface-secondary);
+      background-color: $col-surface-secondary;
     }
 
     50% {
-      background-color: var(--col-border);
+      background-color: $col-border;
     }
   }
 
   .product-info {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xs);
+    gap: $spacing-xs;
   }
 
   .product-brand {
-    color: var(--col-text-secondary);
-    font: var(--font-body-small);
+    color: $col-text-secondary;
+    font: $font-body-small;
   }
 
   .product-name {
-    font: var(--font-body);
+    font: $font-body;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .product-price {
-    margin-top: var(--spacing-xs);
-    font: var(--font-label);
+    margin-top: $spacing-xs;
+    font: $font-label;
   }
 }
 </style>
