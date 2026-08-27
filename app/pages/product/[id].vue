@@ -4,28 +4,34 @@ import type { ProductSize } from "~/types/catalog";
 const route = useRoute();
 const { products, activeCategoryPath } = useCatalog();
 const productId = Number(route.params.id);
-const product = computed(() => products.find((product) => product.id === productId));
+const product = products.find((product) => product.id === productId);
+
+if (!product) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Product not found",
+  });
+}
 
 // meta
 useSeoMeta({
-  title: () =>
-    product.value ? `${product.value.brand} - ${product.value.name.en || product.value.name.dk}` : "Product",
+  title: () => (product ? `${product.brand} - ${product.name.en || product.name.dk}` : "Product"),
   description: () =>
-    product.value
-      ? `Shop ${product.value.name.en || product.value.name.dk} by ${product.value.brand} for ${product.value.price} DKK.`
+    product
+      ? `Shop ${product.name.en || product.name.dk} by ${product.brand} for ${product.price} DKK.`
       : "View product details.",
 });
 
 // creating array of all product variants
 const productVariants = computed(() => {
-  if (!product.value) return [];
+  if (!product) return [];
   const mainVariant = {
-    color: product.value.color,
-    size: product.value.size,
-    stock: product.value.stock,
-    images: product.value.images,
+    color: product.color,
+    size: product.size,
+    stock: product.stock,
+    images: product.images,
   };
-  return [mainVariant, ...(product.value.variant ?? [])];
+  return [mainVariant, ...(product.variant ?? [])];
 });
 
 // all info updates depend on selectedvariantindex
@@ -34,7 +40,7 @@ const selectedVariant = computed(() => productVariants.value[selectedVariantInde
 
 // info updates
 const displayedImages = computed(() =>
-  selectedVariant.value?.images?.length ? selectedVariant.value.images : (product.value?.images ?? []),
+  selectedVariant.value?.images?.length ? selectedVariant.value.images : (product.images ?? []),
 );
 const displayedSizes = computed(() => selectedVariant.value?.size ?? []);
 const displayedStock = computed(() => selectedVariant.value?.stock);
@@ -70,7 +76,7 @@ function getStockLabel(stock: string | number | undefined) {
 </script>
 
 <template>
-  <section v-if="product" class="product-section">
+  <section class="product-section">
     <UiBreadcrumbs v-if="activeCategoryPath.length" :items="activeCategoryPath" />
     <div class="product-details">
       <PdpProductGallery :images="displayedImages" :product-name="product.name.en || product.name.dk || 'Product'" />
@@ -106,8 +112,6 @@ function getStockLabel(stock: string | number | undefined) {
       </div>
     </div>
   </section>
-
-  <p v-else>Product not found</p>
 </template>
 
 <style scoped lang="scss">

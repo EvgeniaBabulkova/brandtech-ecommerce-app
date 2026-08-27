@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { GridItem } from "~/types/gridItem";
 
-const { products: catalogProducts, categories, promotionalSpots } = useCatalog();
+const { products: catalogProducts, categories, promotionalSpots, activeMainCategory } = useCatalog();
 const route = useRoute();
 const router = useRouter();
 
@@ -61,7 +61,7 @@ function resetFilters() {
   });
 }
 
-const hasActiveCategory = computed(() => Boolean(route.query.category?.toString()));
+const hasActiveCategory = computed(() => Boolean(activeMainCategory.value));
 </script>
 
 <template>
@@ -72,12 +72,15 @@ const hasActiveCategory = computed(() => Boolean(route.query.category?.toString(
         <PlpSort :sort="route.query.sort?.toString() ?? ''" @update:sort="updateSort" />
         <button type="button" class="reset-filters-button" @click="resetFilters">Reset</button>
       </div>
-      <div v-if="products.length" :class="hasActiveCategory ? 'product-grid' : 'product-grid product-grid--full'">
+      <p v-if="route.query.category && !activeMainCategory">Oops, couldn't find that category!</p>
+
+      <div v-else-if="products.length" :class="hasActiveCategory ? 'product-grid' : 'product-grid product-grid--full'">
         <template v-for="item in gridItems">
           <PlpProductCard v-if="item.type === 'product'" :key="`product-${item.data.id}`" :product="item.data" />
           <PlpPromotionalSpot v-else :key="`promo-${item.data.position}`" :promotionalSpot="item.data" />
         </template>
       </div>
+
       <p v-else>There are no products to display :((</p>
     </section>
   </div>
