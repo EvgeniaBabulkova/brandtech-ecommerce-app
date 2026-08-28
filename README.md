@@ -2,7 +2,7 @@
 
 [Check it out](https://brandtech-ecommerce-app.vercel.app/) <-----------
 
-A small e-commerce storefront built with Vue 3 and Nuxt SSR, powered by a local catalog JSON containing products, categories, and promotional placements.
+A small e-commerce storefront built with Vue 3 and Nuxt SSR, powered by a local catalog JSON containing products, categories and promotional placements.
 
 ## Overview
 
@@ -11,12 +11,12 @@ This project turns the provided product dataset into a storefront that supports 
 ## Features
 
 - **Product Details & Variants** – Product gallery, pricing, stock information, and variant selection with dynamic image updates.
-- **Product Listing** – Grid-based catalog with promotional spots dynamically inserted at their specified positions.
+- **Product Listing** – Responsive grid-based catalog with promotional spots dynamically inserted at specified positions.
 - **Category Navigation** – Data-driven main and sidebar navigation with active category states and URL-based filtering.
-- **Product Sorting & Filtering** – Sort products by price and filter the catalog with state reflected in URL query parameters.
-- **Breadcrumb Navigation** – Category-aware breadcrumbs providing context on product pages.
+- **Product Sorting & Filtering** – Sort by price and filter by category, brand, and color, with state reflected in URL query parameters.
+- **Breadcrumb Navigation** – Category-aware breadcrumbs on product pages.
 - **SEO** – Dynamic product-specific title and description metadata using Nuxt's `useSeoMeta()`.
-- **Image Optimization** – Optimized WebP product images with lazy loading and loading skeletons using Nuxt Image.
+- **Image Optimization** – Optimized WebP product images with lazy loading and loading skeletons.
 - **Server-Side Rendering** – Built with Nuxt and Vue 3 Composition API with SSR support.
 
 ## Technologies Used
@@ -29,18 +29,26 @@ This project turns the provided product dataset into a storefront that supports 
 - SSR rendering
 
 ## Project Preview
+<img width="1892" height="972" alt="image" src="https://github.com/user-attachments/assets/a102a053-9d16-4ee2-827a-937ab3a61fee" />
+<img width="1887" height="1097" alt="image" src="https://github.com/user-attachments/assets/9b64e85f-5a10-4942-8c0e-e939ec9cbd3c" />
 
 ## Project Structure
 
 ```text
 app/
+├── app.vue
 ├── assets/
-│   └── css/
+│   └── styles/
 │       ├── _mixins.scss
 │       └── main.css
 ├── components/
-│   ├── NavBar.vue
+│   ├──  ui/
+│       ├── ArrowButton.vue
+│       ├── Breadcrumbs.vue
+│       ├── MultiSelect.vue
+│       └── SelectorButton.vue
 │   ├── pdp/
+│   │   ├── ProductControls.vue
 │   │   ├── ProductGallery.vue
 │   │   ├── ProductSizeSelector.vue
 │   │   └── ProductVariantSelector.vue
@@ -50,24 +58,17 @@ app/
 │   │   ├── Sidebar.vue
 │   │   ├── SidebarCategory.vue
 │   │   └── Sort.vue
-│   └── ui/
-│       ├── ArrowButton.vue
-│       ├── Breadcrumbs.vue
-│       └── SelectorButton.vue
+│   └── NavBar.vue
 ├── composables/
-│   └── useCatalog.ts
+│   ├── useCatalog.ts
 ├── data/
-│   └── catalog.json
+├── layouts/
 ├── pages/
 │   ├── index.vue
 │   └── product/
 │       └── [id].vue
-├── types/
-│   ├── catalog.ts
-│   └── gridItem.ts
-├── app.vue
-└── layouts/
-    └── default.vue
+└── types/
+
 ```
 
 ## Run Locally
